@@ -1,0 +1,13 @@
+{
+  "name": "aurum",
+  "version": "1.0.0",
+  "description": "A full-stack clothing store platform with a **customer storefront** and an **admin CRM**, built per spec:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
