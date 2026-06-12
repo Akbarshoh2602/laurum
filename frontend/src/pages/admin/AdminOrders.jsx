@@ -55,7 +55,7 @@ export default function AdminOrders() {
         </select>
       </div>
 
-      <div className="bg-white border border-neutral-200 overflow-x-auto">
+      <div className="card overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="bg-neutral-50 text-left uppercase text-xs tracking-widest text-neutral-500">
             <tr>

@@ -52,69 +52,94 @@ export default function Products() {
     setSearchParams(next)
   }
 
+  const activeCategory = categories.find((c) => String(c.id) === categoryId)
+
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12">
-      <h1 className="font-display text-5xl mb-8">The Shop</h1>
-
-      <div className="flex flex-col md:flex-row gap-4 md:items-center justify-between mb-10">
-        <form onSubmit={applySearch} className="flex gap-2 w-full md:w-96">
-          <input
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            placeholder="Search products…"
-            className="input"
-          />
-          <button className="btn-ghost px-5">Search</button>
-        </form>
-
-        <div className="flex flex-wrap gap-2">
-          <button
-            onClick={() => setCategory('')}
-            className={`badge border px-3 py-1 ${!categoryId ? 'bg-ink text-gold' : 'border-neutral-300'}`}
-          >
-            All
-          </button>
-          {categories.map((c) => (
-            <button
-              key={c.id}
-              onClick={() => setCategory(String(c.id))}
-              className={`badge border px-3 py-1 ${
-                categoryId === String(c.id) ? 'bg-ink text-gold' : 'border-neutral-300'
-              }`}
-            >
-              {c.name}
-            </button>
-          ))}
+    <div>
+      {/* Shop header banner */}
+      <div className="bg-ink text-cream py-12 border-b-4 border-gold pattern-stripes">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <span className="badge-hot mb-4 inline-block">Men&apos;s Clothing</span>
+          <h1 className="font-display text-6xl sm:text-7xl leading-none">
+            {activeCategory ? activeCategory.name.toUpperCase() : 'THE SHOP'}
+          </h1>
+          <p className="text-cream/70 font-medium mt-3 max-w-lg">
+            {activeCategory
+              ? `All our ${activeCategory.name.toLowerCase()} gear in one place.`
+              : 'Browse the full collection — find something that fits your style.'}
+          </p>
         </div>
       </div>
 
-      {loading ? (
-        <p className="text-neutral-500">Loading…</p>
-      ) : products.length === 0 ? (
-        <p className="text-neutral-500">No products found.</p>
-      ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
-        </div>
-      )}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+        {/* Filters bar */}
+        <div className="flex flex-col lg:flex-row gap-6 mb-10">
+          <form onSubmit={applySearch} className="flex gap-2 flex-1 max-w-lg">
+            <input
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              placeholder="Search jackets, tees, pants…"
+              className="input flex-1"
+            />
+            <button className="btn-gold py-2 px-5 text-xs shrink-0">Go</button>
+          </form>
 
-      {totalPages > 1 && (
-        <div className="flex justify-center gap-2 mt-12">
-          {Array.from({ length: totalPages }).map((_, i) => (
+          <div className="flex flex-wrap gap-2">
             <button
-              key={i}
-              onClick={() => setPage(i)}
-              className={`w-10 h-10 border ${
-                i === page ? 'bg-ink text-gold' : 'border-neutral-300 hover:border-gold'
-              }`}
+              onClick={() => setCategory('')}
+              className={`badge transition-all ${!categoryId ? 'bg-gold text-cream shadow-pop-sm' : 'bg-cream hover:bg-pearl'}`}
             >
-              {i + 1}
+              All
             </button>
-          ))}
+            {categories.map((c) => (
+              <button
+                key={c.id}
+                onClick={() => setCategory(String(c.id))}
+                className={`badge transition-all ${
+                  categoryId === String(c.id) ? 'bg-gold text-cream shadow-pop-sm' : 'bg-cream hover:bg-pearl'
+                }`}
+              >
+                {c.name}
+              </button>
+            ))}
+          </div>
         </div>
-      )}
+
+        {loading ? (
+          <div className="text-center py-24">
+            <div className="font-display text-4xl text-ink animate-pulse">LOADING…</div>
+          </div>
+        ) : products.length === 0 ? (
+          <div className="text-center py-24 card p-12">
+            <div className="font-display text-5xl text-ink mb-3">NO LUCK</div>
+            <p className="text-slate font-medium">Nothing matched your search. Try something else!</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            {products.map((p) => (
+              <ProductCard key={p.id} product={p} />
+            ))}
+          </div>
+        )}
+
+        {totalPages > 1 && (
+          <div className="flex justify-center gap-2 mt-12">
+            {Array.from({ length: totalPages }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setPage(i)}
+                className={`w-11 h-11 font-bold border-2 border-ink transition-all ${
+                  i === page
+                    ? 'bg-gold text-cream shadow-pop-sm'
+                    : 'bg-cream hover:bg-pearl shadow-pop-sm hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none'
+                }`}
+              >
+                {i + 1}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   )
 }

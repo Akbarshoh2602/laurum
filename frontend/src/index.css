@@ -7,36 +7,76 @@
     @apply bg-cream text-ink font-sans antialiased;
   }
   h1, h2, h3, h4 {
-    @apply font-display;
+    @apply font-display tracking-wide;
   }
 }
 
 @layer components {
   .btn-gold {
-    @apply inline-flex items-center justify-center gap-2 bg-gold text-ink font-medium px-6 py-3
-           tracking-wide uppercase text-sm transition hover:bg-gold-dark hover:text-cream
-           disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply inline-flex items-center justify-center gap-2 bg-gold text-cream font-bold px-7 py-3
+           uppercase text-sm tracking-wider border-2 border-ink shadow-pop
+           transition-all duration-200
+           hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none
+           active:translate-x-1 active:translate-y-1
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-pop;
   }
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 border border-ink text-ink px-6 py-3
-           tracking-wide uppercase text-sm transition hover:bg-ink hover:text-cream;
+    @apply inline-flex items-center justify-center gap-2 bg-cream text-ink font-bold px-7 py-3
+           uppercase text-sm tracking-wider border-2 border-ink shadow-pop-sm
+           transition-all duration-200
+           hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none hover:bg-pearl
+           active:translate-x-1 active:translate-y-1;
+  }
+  .btn-outline-gold {
+    @apply inline-flex items-center justify-center gap-2 bg-transparent text-ink font-bold px-7 py-3
+           uppercase text-sm tracking-wider border-2 border-ink shadow-pop-sm
+           transition-all duration-200 hover:bg-gold hover:text-cream
+           hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none;
   }
   .input {
-    @apply w-full border border-neutral-300 bg-white px-4 py-3 text-sm
-           focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold;
+    @apply w-full border-2 border-ink bg-cream px-4 py-3 text-sm font-medium
+           placeholder:text-slate/70
+           focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30 transition;
   }
   .label {
-    @apply block text-xs uppercase tracking-widest text-neutral-500 mb-1;
+    @apply block text-xs font-bold uppercase tracking-wider text-ink mb-1.5;
   }
   .card {
-    @apply bg-white border border-neutral-200;
+    @apply bg-cream border-2 border-ink shadow-pop-sm;
   }
   .badge {
-    @apply inline-block px-2 py-0.5 text-[11px] uppercase tracking-wider;
+    @apply inline-block px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider border-2 border-ink;
+  }
+  .badge-new {
+    @apply badge bg-electric text-ink -rotate-2 shadow-pop-sm;
+  }
+  .badge-hot {
+    @apply badge bg-gold text-cream rotate-1 shadow-pop-sm;
+  }
+  .badge-sold {
+    @apply badge bg-ink text-cream;
+  }
+  .nav-link {
+    @apply font-bold uppercase text-sm tracking-wider text-ink
+           hover:text-gold transition-colors relative
+           after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-gold
+           after:transition-all hover:after:w-full;
+  }
+  .pattern-dots {
+    background-image: radial-gradient(#0D1B2A 1.5px, transparent 1.5px);
+    background-size: 16px 16px;
+  }
+  .pattern-stripes {
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 8px,
+      rgba(13, 27, 42, 0.06) 8px,
+      rgba(13, 27, 42, 0.06) 16px
+    );
   }
 }
 
-/* thin gold scrollbar accent */
-::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-thumb { background: #C9A227; }
-::-webkit-scrollbar-track { background: #1A1A1A; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-thumb { background: #FF5C00; border: 2px solid #0D1B2A; }
+::-webkit-scrollbar-track { background: #F7F3EC; }

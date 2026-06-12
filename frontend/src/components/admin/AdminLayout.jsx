@@ -20,23 +20,29 @@ export default function AdminLayout() {
   }
 
   return (
-    <div className="min-h-screen flex bg-neutral-100">
-      {/* Sidebar */}
-      <aside className="w-60 bg-ink text-cream flex flex-col">
-        <div className="h-16 flex items-center px-6 border-b border-cream/10">
-          <span className="font-display text-2xl text-gold">AURUM</span>
-          <span className="ml-2 text-[10px] uppercase tracking-widest text-cream/50">CRM</span>
+    <div className="min-h-screen flex bg-pearl">
+      <aside className="w-60 bg-ink text-cream border-r-4 border-gold flex flex-col">
+        <div className="h-16 flex items-center px-6 border-b-2 border-cream/10">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-gold border-2 border-cream flex items-center justify-center">
+              <span className="font-display text-lg text-cream">L</span>
+            </div>
+            <div>
+              <span className="font-display text-xl leading-none">LAURA</span>
+              <span className="block text-[9px] font-bold uppercase tracking-widest text-gold">Admin</span>
+            </div>
+          </div>
         </div>
-        <nav className="flex-1 py-6">
+        <nav className="flex-1 py-4">
           {links.map((l) => (
             <NavLink
               key={l.to}
               to={l.to}
               className={({ isActive }) =>
-                `block px-6 py-3 text-sm uppercase tracking-widest transition border-l-2 ${
+                `block px-6 py-3 text-xs font-bold uppercase tracking-wider transition border-l-4 ${
                   isActive
                     ? 'border-gold text-gold bg-charcoal'
-                    : 'border-transparent text-cream/70 hover:text-gold'
+                    : 'border-transparent text-cream/70 hover:text-gold hover:bg-charcoal/50'
                 }`
               }
             >
@@ -44,21 +50,24 @@ export default function AdminLayout() {
             </NavLink>
           ))}
         </nav>
-        <div className="p-6 border-t border-cream/10">
-          <Link to="/" className="block text-xs text-cream/50 hover:text-gold mb-2">← Storefront</Link>
-          <button onClick={handleLogout} className="text-xs uppercase tracking-widest text-cream/70 hover:text-gold">
+        <div className="p-6 border-t-2 border-cream/10">
+          <Link to="/" className="block text-xs font-bold uppercase tracking-wider text-cream/50 hover:text-gold mb-3">
+            ← Storefront
+          </Link>
+          <button onClick={handleLogout} className="text-xs font-bold uppercase tracking-wider text-cream/70 hover:text-gold">
             Logout
           </button>
         </div>
       </aside>
 
-      {/* Content */}
       <div className="flex-1 flex flex-col">
-        <header className="h-16 bg-white border-b border-neutral-200 flex items-center justify-between px-8">
-          <h1 className="font-display text-2xl">Management Console</h1>
+        <header className="h-16 bg-cream border-b-2 border-ink flex items-center justify-between px-8">
+          <h1 className="font-display text-2xl">ADMIN PANEL</h1>
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-gold text-ink flex items-center justify-center font-medium">A</div>
-            <span className="text-sm text-neutral-600">Administrator</span>
+            <div className="w-9 h-9 bg-gold border-2 border-ink text-cream flex items-center justify-center font-display text-lg shadow-pop-sm">
+              A
+            </div>
+            <span className="text-sm font-bold text-slate">Administrator</span>
           </div>
         </header>
         <div className="p-8 flex-1 overflow-auto">

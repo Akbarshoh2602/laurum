@@ -5,17 +5,42 @@ export default {
     extend: {
       colors: {
         gold: {
-          DEFAULT: '#C9A227',
-          light: '#E3C766',
-          dark: '#9A7B1A',
+          DEFAULT: '#FF5C00',
+          light: '#FF8A4C',
+          dark: '#CC4900',
         },
-        ink: '#0B0B0B',
-        charcoal: '#1A1A1A',
-        cream: '#F7F5F0',
+        ink: '#0D1B2A',
+        charcoal: '#1B263B',
+        cream: '#F7F3EC',
+        pearl: '#EDE8DF',
+        mist: '#D6D0C4',
+        slate: '#5C6778',
+        electric: '#00B4D8',
+        forest: '#2D6A4F',
       },
       fontFamily: {
-        display: ['"Cormorant Garamond"', 'serif'],
-        sans: ['Jost', 'system-ui', 'sans-serif'],
+        display: ['"Bebas Neue"', 'Impact', 'sans-serif'],
+        sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+      },
+      boxShadow: {
+        pop: '4px 4px 0px #0D1B2A',
+        'pop-sm': '3px 3px 0px #0D1B2A',
+        'pop-lg': '6px 6px 0px #0D1B2A',
+        'pop-accent': '4px 4px 0px #FF5C00',
+      },
+      animation: {
+        marquee: 'marquee 28s linear infinite',
+        'bounce-soft': 'bounce-soft 2s ease-in-out infinite',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        'bounce-soft': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-6px)' },
+        },
       },
     },
   },

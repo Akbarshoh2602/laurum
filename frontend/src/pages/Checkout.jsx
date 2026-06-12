@@ -34,16 +34,19 @@ export default function Checkout() {
 
   if (placed) {
     return (
-      <div className="max-w-2xl mx-auto px-6 py-20 text-center">
-        <p className="text-xs uppercase tracking-[0.3em] text-gold">Thank you</p>
-        <h1 className="font-display text-5xl mt-2">Order #{placed.id} Confirmed</h1>
-        <p className="text-neutral-600 mt-4">
-          Status: <span className="uppercase">{placed.status}</span> · Total ${Number(placed.totalAmount).toFixed(2)}
+      <div className="max-w-lg mx-auto px-4 py-24 text-center">
+        <div className="text-6xl mb-4">🎉</div>
+        <span className="badge-hot mb-4 inline-block">Order Placed</span>
+        <h1 className="font-display text-5xl mb-2">YOU&apos;RE SET!</h1>
+        <p className="font-display text-3xl text-gold mb-4">Order #{placed.id}</p>
+        <p className="text-slate font-medium">
+          Status: <span className="font-bold uppercase">{placed.status}</span>
+          {' · '}${Number(placed.totalAmount).toFixed(2)}
         </p>
-        <p className="text-neutral-600 mt-2">We'll prepare your items for delivery shortly.</p>
-        <div className="flex gap-3 justify-center mt-8">
-          <button onClick={() => navigate('/profile')} className="btn-ghost">View my orders</button>
-          <button onClick={() => navigate('/products')} className="btn-gold">Keep shopping</button>
+        <p className="text-slate mt-3">We&apos;re packing your gear now. It&apos;ll be on its way soon.</p>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center mt-10">
+          <button onClick={() => navigate('/profile')} className="btn-ghost">My Orders</button>
+          <button onClick={() => navigate('/products')} className="btn-gold">Keep Shopping</button>
         </div>
       </div>
     )
@@ -51,52 +54,59 @@ export default function Checkout() {
 
   if (!cart.items.length) {
     return (
-      <div className="max-w-2xl mx-auto px-6 py-20 text-center">
-        <h1 className="font-display text-4xl mb-4">Nothing to check out</h1>
-        <button onClick={() => navigate('/products')} className="btn-gold">Browse products</button>
+      <div className="max-w-lg mx-auto px-4 py-24 text-center">
+        <h1 className="font-display text-5xl mb-4">NOTHING HERE</h1>
+        <button onClick={() => navigate('/products')} className="btn-gold">Browse Shop</button>
       </div>
     )
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-12">
-      <div>
-        <h1 className="font-display text-5xl mb-8">Checkout</h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-          <div>
-            <label className="label">Full Name</label>
-            <input className="input" {...register('fullName', { required: 'Required' })} />
-            {errors.fullName && <p className="text-red-600 text-xs mt-1">{errors.fullName.message}</p>}
-          </div>
-          <div>
-            <label className="label">Phone Number</label>
-            <input className="input" {...register('phone', { required: 'Required' })} />
-            {errors.phone && <p className="text-red-600 text-xs mt-1">{errors.phone.message}</p>}
-          </div>
-          <div>
-            <label className="label">Delivery Address</label>
-            <textarea rows={3} className="input" {...register('deliveryAddress', { required: 'Required' })} />
-            {errors.deliveryAddress && <p className="text-red-600 text-xs mt-1">{errors.deliveryAddress.message}</p>}
-          </div>
-          {error && <p className="text-red-600 text-sm">{error}</p>}
-          <button disabled={isSubmitting} className="btn-gold w-full">
-            {isSubmitting ? 'Placing order…' : 'Confirm Order'}
-          </button>
-        </form>
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+      <div className="mb-10">
+        <span className="badge bg-electric mb-3 inline-block">Almost There</span>
+        <h1 className="font-display text-6xl">CHECKOUT</h1>
       </div>
 
-      <div>
-        <h2 className="font-display text-2xl mb-4">Order Summary</h2>
-        <div className="card divide-y divide-neutral-200">
-          {cart.items.map((item) => (
-            <div key={item.id} className="flex justify-between p-4 text-sm">
-              <span>{item.productName} × {item.quantity}</span>
-              <span>${Number(item.lineTotal).toFixed(2)}</span>
+      <div className="grid lg:grid-cols-2 gap-10">
+        <div className="card p-6">
+          <h2 className="font-display text-3xl mb-6">Delivery Info</h2>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            <div>
+              <label className="label">Full Name</label>
+              <input className="input" {...register('fullName', { required: 'Required' })} />
+              {errors.fullName && <p className="text-red-600 text-xs mt-1 font-medium">{errors.fullName.message}</p>}
             </div>
-          ))}
-          <div className="flex justify-between p-4 font-medium">
-            <span>Total</span>
-            <span className="font-display text-2xl">${Number(cart.grandTotal).toFixed(2)}</span>
+            <div>
+              <label className="label">Phone</label>
+              <input className="input" {...register('phone', { required: 'Required' })} />
+              {errors.phone && <p className="text-red-600 text-xs mt-1 font-medium">{errors.phone.message}</p>}
+            </div>
+            <div>
+              <label className="label">Delivery Address</label>
+              <textarea rows={3} className="input resize-none" {...register('deliveryAddress', { required: 'Required' })} />
+              {errors.deliveryAddress && <p className="text-red-600 text-xs mt-1 font-medium">{errors.deliveryAddress.message}</p>}
+            </div>
+            {error && <p className="text-red-600 text-sm font-medium">{error}</p>}
+            <button disabled={isSubmitting} className="btn-gold w-full">
+              {isSubmitting ? 'Placing Order…' : 'Place Order →'}
+            </button>
+          </form>
+        </div>
+
+        <div>
+          <h2 className="font-display text-3xl mb-6">Order Summary</h2>
+          <div className="card divide-y-2 divide-ink/10">
+            {cart.items.map((item) => (
+              <div key={item.id} className="flex justify-between p-4 text-sm">
+                <span className="font-medium">{item.productName} × {item.quantity}</span>
+                <span className="font-bold">${Number(item.lineTotal).toFixed(2)}</span>
+              </div>
+            ))}
+            <div className="flex justify-between p-5 bg-ink text-cream">
+              <span className="font-display text-xl text-gold">Total</span>
+              <span className="font-display text-3xl">${Number(cart.grandTotal).toFixed(2)}</span>
+            </div>
           </div>
         </div>
       </div>

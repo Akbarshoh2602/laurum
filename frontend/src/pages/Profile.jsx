@@ -29,7 +29,7 @@ export default function Profile() {
     try {
       const res = await client.put('/profile', data)
       updateUser(unwrap(res))
-      setMsg('Profile updated')
+      setMsg('Profile updated! ✓')
     } catch (err) {
       setMsg(err.message)
     }
@@ -42,52 +42,61 @@ export default function Profile() {
   })
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-12">
-      <h1 className="font-display text-5xl mb-10">My Account</h1>
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+      <div className="mb-10">
+        <span className="badge bg-electric mb-3 inline-block">My Account</span>
+        <h1 className="font-display text-6xl">HEY, {user?.firstName?.toUpperCase()}</h1>
+      </div>
 
-      <div className="grid md:grid-cols-2 gap-12">
-        <section>
-          <h2 className="font-display text-2xl mb-4">Personal Information</h2>
+      <div className="grid lg:grid-cols-2 gap-8">
+        <section className="card p-6">
+          <h2 className="font-display text-3xl mb-6 pb-3 border-b-2 border-ink">Profile</h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div><label className="label">First Name</label><input className="input" {...register('firstName')} /></div>
               <div><label className="label">Last Name</label><input className="input" {...register('lastName')} /></div>
             </div>
-            <div><label className="label">Email</label><input className="input bg-neutral-100" value={user?.email} disabled /></div>
+            <div><label className="label">Email</label><input className="input bg-pearl cursor-not-allowed" value={user?.email} disabled /></div>
             <div><label className="label">Phone</label><input className="input" {...register('phone')} /></div>
-            <div><label className="label">Address</label><textarea rows={2} className="input" {...register('address')} /></div>
+            <div><label className="label">Address</label><textarea rows={2} className="input resize-none" {...register('address')} /></div>
             <div><label className="label">New Password (optional)</label><input type="password" className="input" {...register('newPassword')} /></div>
-            {msg && <p className="text-sm text-gold-dark">{msg}</p>}
+            {msg && <p className="text-sm font-bold text-forest">{msg}</p>}
             <button className="btn-gold">Save Changes</button>
           </form>
         </section>
 
-        <section>
-          <h2 className="font-display text-2xl mb-4">Order History</h2>
-          <div className="flex gap-2 mb-4">
+        <section className="card p-6">
+          <h2 className="font-display text-3xl mb-6 pb-3 border-b-2 border-ink">Orders</h2>
+          <div className="flex flex-wrap gap-2 mb-5">
             {['all', 'pending', 'completed'].map((t) => (
-              <button key={t} onClick={() => setTab(t)}
-                className={`badge border px-3 py-1 capitalize ${tab === t ? 'bg-ink text-gold' : 'border-neutral-300'}`}>
+              <button
+                key={t}
+                onClick={() => setTab(t)}
+                className={`badge capitalize transition-all ${
+                  tab === t ? 'bg-gold text-cream shadow-pop-sm' : 'bg-pearl hover:bg-mist'
+                }`}
+              >
                 {t}
               </button>
             ))}
           </div>
           {filtered.length === 0 ? (
-            <p className="text-neutral-500 text-sm">No orders yet.</p>
+            <p className="text-slate font-medium">No orders yet. Go treat yourself!</p>
           ) : (
             <div className="space-y-3">
               {filtered.map((o) => (
-                <div key={o.id} className="card p-4">
+                <div key={o.id} className="p-4 bg-pearl border-2 border-ink">
                   <div className="flex justify-between items-center">
-                    <span className="font-medium">Order #{o.id}</span>
+                    <span className="font-display text-xl">Order #{o.id}</span>
                     <span className={`badge ${
-                      o.status === 'COMPLETED' ? 'bg-green-100 text-green-800'
-                      : o.status === 'CANCELLED' ? 'bg-red-100 text-red-800'
-                      : 'bg-amber-100 text-amber-800'}`}>
+                      o.status === 'COMPLETED' ? 'bg-forest text-cream'
+                      : o.status === 'CANCELLED' ? 'bg-red-600 text-cream'
+                      : 'bg-gold text-cream'
+                    }`}>
                       {o.status}
                     </span>
                   </div>
-                  <p className="text-sm text-neutral-500 mt-1">
+                  <p className="text-sm text-slate font-medium mt-1">
                     {o.items?.length} item(s) · ${Number(o.totalAmount).toFixed(2)}
                   </p>
                 </div>

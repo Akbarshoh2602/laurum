@@ -19,7 +19,11 @@ export default function ProductDetail() {
   }, [id])
 
   if (!product) {
-    return <div className="max-w-7xl mx-auto px-6 py-20 text-neutral-500">Loading…</div>
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-32 text-center">
+        <div className="font-display text-4xl animate-pulse">LOADING…</div>
+      </div>
+    )
   }
 
   const outOfStock = product.quantity <= 0
@@ -34,7 +38,7 @@ export default function ProductDetail() {
     setMsg('')
     try {
       await add(product.id, qty)
-      setMsg('Added to cart')
+      setMsg('Added to cart! ✓')
     } catch (err) {
       setMsg(err.message)
     } finally {
@@ -43,58 +47,79 @@ export default function ProductDetail() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12">
-      <Link to="/products" className="text-sm text-neutral-500 hover:text-gold">← Back to shop</Link>
-      <div className="grid md:grid-cols-2 gap-12 mt-6">
-        <div className="aspect-[3/4] bg-neutral-100 overflow-hidden">
-          {product.imageUrl ? (
-            <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-neutral-400">No image</div>
-          )}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+      <Link to="/products" className="inline-flex items-center gap-2 font-bold uppercase text-sm text-slate hover:text-gold transition mb-8">
+        ← Back to Shop
+      </Link>
+
+      <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
+        <div className="relative">
+          <div className="absolute -top-3 -left-3 w-full h-full bg-gold border-2 border-ink hidden sm:block" />
+          <div className="relative aspect-[3/4] bg-pearl border-2 border-ink overflow-hidden shadow-pop-lg">
+            {product.imageUrl ? (
+              <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-slate font-bold uppercase">No Image</div>
+            )}
+          </div>
+          {product.newArrival && <span className="badge-new absolute top-4 left-4">New Drop</span>}
         </div>
 
-        <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-gold">
-            {product.categoryName} {product.brandName && `· ${product.brandName}`}
-          </p>
-          <h1 className="font-display text-5xl mt-2">{product.name}</h1>
-          <div className="text-2xl mt-4">${Number(product.sellingPrice).toFixed(2)}</div>
+        <div className="lg:py-4">
+          <div className="flex flex-wrap gap-2 mb-4">
+            <span className="badge bg-pearl">{product.categoryName}</span>
+            {product.brandName && <span className="badge bg-electric">{product.brandName}</span>}
+          </div>
 
-          <p className="text-neutral-600 leading-relaxed mt-6">{product.description}</p>
+          <h1 className="font-display text-5xl sm:text-6xl text-ink leading-none">{product.name}</h1>
+          <div className="font-display text-4xl text-gold mt-4">${Number(product.sellingPrice).toFixed(2)}</div>
 
-          <dl className="grid grid-cols-2 gap-4 mt-8 text-sm">
-            {product.size && (<div><dt className="label">Size</dt><dd>{product.size}</dd></div>)}
-            {product.color && (<div><dt className="label">Color</dt><dd>{product.color}</dd></div>)}
-            <div><dt className="label">Availability</dt>
-              <dd className={outOfStock ? 'text-red-600' : 'text-green-700'}>
-                {outOfStock ? 'Out of stock' : `${product.quantity} in stock`}
+          <p className="text-slate leading-relaxed mt-6 text-base">{product.description}</p>
+
+          <dl className="grid grid-cols-2 gap-4 mt-8 p-5 bg-pearl border-2 border-ink">
+            {product.size && (
+              <div>
+                <dt className="label">Size</dt>
+                <dd className="font-bold">{product.size}</dd>
+              </div>
+            )}
+            {product.color && (
+              <div>
+                <dt className="label">Color</dt>
+                <dd className="font-bold">{product.color}</dd>
+              </div>
+            )}
+            <div>
+              <dt className="label">Stock</dt>
+              <dd className={`font-bold ${outOfStock ? 'text-red-600' : 'text-forest'}`}>
+                {outOfStock ? 'Sold Out' : `${product.quantity} left`}
               </dd>
             </div>
-            {product.productCode && (<div><dt className="label">Code</dt><dd>{product.productCode}</dd></div>)}
+            {product.productCode && (
+              <div>
+                <dt className="label">SKU</dt>
+                <dd className="font-mono text-sm">{product.productCode}</dd>
+              </div>
+            )}
           </dl>
 
           {!isAdmin && (
             <div className="mt-8">
-              <div className="flex items-center gap-4">
-                <div className="flex border border-neutral-300">
-                  <button className="px-4 py-2" onClick={() => setQty((q) => Math.max(1, q - 1))}>−</button>
-                  <span className="px-4 py-2 min-w-[3rem] text-center">{qty}</span>
-                  <button
-                    className="px-4 py-2"
-                    onClick={() => setQty((q) => Math.min(product.quantity, q + 1))}
-                  >
-                    +
-                  </button>
+              <div className="flex items-center gap-3">
+                <div className="flex border-2 border-ink shadow-pop-sm">
+                  <button className="px-4 py-3 font-bold hover:bg-pearl transition" onClick={() => setQty((q) => Math.max(1, q - 1))}>−</button>
+                  <span className="px-5 py-3 min-w-[3rem] text-center font-bold border-x-2 border-ink">{qty}</span>
+                  <button className="px-4 py-3 font-bold hover:bg-pearl transition" onClick={() => setQty((q) => Math.min(product.quantity, q + 1))}>+</button>
                 </div>
                 <button onClick={handleAdd} disabled={busy || outOfStock} className="btn-gold flex-1">
-                  {outOfStock ? 'Unavailable' : 'Add to Cart'}
+                  {outOfStock ? 'Sold Out' : 'Add to Cart'}
                 </button>
               </div>
-              {msg && <p className="mt-3 text-sm text-gold-dark">{msg}</p>}
+              {msg && <p className="mt-3 text-sm font-bold text-forest">{msg}</p>}
               {!isAuthenticated && (
-                <p className="mt-3 text-sm text-neutral-500">
-                  You can browse freely, but you'll need to log in to check out.
+                <p className="mt-3 text-sm text-slate">
+                  <Link to="/login" state={{ from: `/products/${id}` }} className="text-gold font-bold hover:underline">Log in</Link>
+                  {' '}to add to cart and checkout.
                 </p>
               )}
             </div>

@@ -70,7 +70,7 @@ export default function ProductForm() {
   return (
     <div className="max-w-3xl">
       <h2 className="font-display text-3xl mb-6">{editing ? 'Edit Product' : 'New Product'}</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-white border border-neutral-200 p-6 space-y-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="card p-6 space-y-5">
         <div className="grid md:grid-cols-2 gap-4">
           <div><label className="label">Name *</label><input className="input" {...register('name', { required: true })} /></div>
           <div><label className="label">Product Code</label><input className="input" {...register('productCode')} /></div>

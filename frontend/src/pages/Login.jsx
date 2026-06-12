@@ -25,33 +25,42 @@ export default function Login() {
   }
 
   return (
-    <div className="max-w-md mx-auto px-6 py-20">
-      <h1 className="font-display text-5xl text-center mb-2">Welcome Back</h1>
-      <p className="text-center text-neutral-500 mb-10 text-sm">Sign in to your account</p>
+    <div className="min-h-[70vh] flex items-center justify-center px-4 py-16">
+      <div className="w-full max-w-md">
+        <div className="card p-8 sm:p-10">
+          <div className="text-center mb-8">
+            <div className="w-14 h-14 bg-gold border-2 border-ink shadow-pop-sm flex items-center justify-center mx-auto mb-4">
+              <span className="font-display text-3xl text-cream">L</span>
+            </div>
+            <h1 className="font-display text-4xl">WELCOME BACK</h1>
+            <p className="text-slate font-medium mt-2">Log in to your Laura Store account</p>
+          </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-        <div>
-          <label className="label">Email or Admin Login</label>
-          <input className="input" {...register('login', { required: true })} placeholder="you@email.com" />
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            <div>
+              <label className="label">Email or Admin Login</label>
+              <input className="input" {...register('login', { required: true })} placeholder="you@email.com" />
+            </div>
+            <div>
+              <label className="label">Password</label>
+              <input type="password" className="input" {...register('password', { required: true })} />
+            </div>
+            {error && <p className="text-red-600 text-sm font-medium">{error}</p>}
+            <button disabled={isSubmitting} className="btn-gold w-full">
+              {isSubmitting ? 'Logging In…' : 'Log In →'}
+            </button>
+          </form>
+
+          <p className="text-center text-sm text-slate mt-6 font-medium">
+            No account?{' '}
+            <Link to="/register" className="text-gold font-bold hover:underline">Sign up free</Link>
+          </p>
         </div>
-        <div>
-          <label className="label">Password</label>
-          <input type="password" className="input" {...register('password', { required: true })} />
+
+        <div className="mt-6 text-xs text-slate text-center font-medium">
+          Admin: login <span className="font-mono bg-pearl px-1 border border-ink/20">ADMIN123</span> /{' '}
+          <span className="font-mono bg-pearl px-1 border border-ink/20">6789</span>
         </div>
-        {error && <p className="text-red-600 text-sm">{error}</p>}
-        <button disabled={isSubmitting} className="btn-gold w-full">
-          {isSubmitting ? 'Signing in…' : 'Sign In'}
-        </button>
-      </form>
-
-      <p className="text-center text-sm text-neutral-500 mt-6">
-        No account?{' '}
-        <Link to="/register" className="text-gold-dark underline">Create one</Link>
-      </p>
-
-      <div className="mt-8 border-t border-neutral-200 pt-6 text-xs text-neutral-400 text-center">
-        Admin access: login <span className="font-mono text-neutral-600">ADMIN123</span>, password{' '}
-        <span className="font-mono text-neutral-600">6789</span>
       </div>
     </div>
   )

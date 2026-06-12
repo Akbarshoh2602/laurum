@@ -5,14 +5,14 @@ import {
   XAxis, YAxis, Tooltip, CartesianGrid,
 } from 'recharts'
 
-const GOLD = '#C9A227'
-const PIE_COLORS = ['#C9A227', '#1A1A1A', '#9A7B1A', '#E3C766', '#6b6b6b', '#444']
+const ACCENT = '#FF5C00'
+const PIE_COLORS = ['#FF5C00', '#0D1B2A', '#00B4D8', '#2D6A4F', '#CC4900', '#1B263B']
 
 function Card({ label, value, accent }) {
   return (
-    <div className="bg-white border border-neutral-200 p-5">
-      <div className="text-xs uppercase tracking-widest text-neutral-400">{label}</div>
-      <div className={`font-display text-4xl mt-2 ${accent ? 'text-gold-dark' : ''}`}>{value}</div>
+    <div className="card p-5">
+      <div className="text-xs font-bold uppercase tracking-wider text-slate">{label}</div>
+      <div className={`font-display text-4xl mt-1 ${accent ? 'text-gold' : 'text-ink'}`}>{value}</div>
     </div>
   )
 }
@@ -24,7 +24,7 @@ export default function Dashboard() {
     client.get('/admin/dashboard').then((r) => setData(unwrap(r))).catch(() => {})
   }, [])
 
-  if (!data) return <p className="text-neutral-500">Loading dashboard…</p>
+  if (!data) return <p className="text-slate font-medium">Loading dashboard…</p>
 
   const money = (n) => `$${Number(n).toLocaleString(undefined, { maximumFractionDigits: 0 })}`
 
@@ -42,49 +42,49 @@ export default function Dashboard() {
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
-        <div className="bg-white border border-neutral-200 p-6">
+        <div className="card p-6">
           <h3 className="font-display text-2xl mb-4">Monthly Sales</h3>
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={data.monthlySales}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
-              <XAxis dataKey="label" fontSize={12} />
-              <YAxis fontSize={12} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#EDE8DF" />
+              <XAxis dataKey="label" fontSize={12} stroke="#5C6778" />
+              <YAxis fontSize={12} stroke="#5C6778" />
               <Tooltip />
-              <Bar dataKey="revenue" fill={GOLD} />
+              <Bar dataKey="revenue" fill={ACCENT} radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-white border border-neutral-200 p-6">
+        <div className="card p-6">
           <h3 className="font-display text-2xl mb-4">Revenue Trend</h3>
           <ResponsiveContainer width="100%" height={260}>
             <LineChart data={data.monthlySales}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
-              <XAxis dataKey="label" fontSize={12} />
-              <YAxis fontSize={12} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#EDE8DF" />
+              <XAxis dataKey="label" fontSize={12} stroke="#5C6778" />
+              <YAxis fontSize={12} stroke="#5C6778" />
               <Tooltip />
-              <Line type="monotone" dataKey="revenue" stroke="#1A1A1A" strokeWidth={2} dot={{ fill: GOLD }} />
+              <Line type="monotone" dataKey="revenue" stroke="#0D1B2A" strokeWidth={3} dot={{ fill: ACCENT, r: 5 }} />
             </LineChart>
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-white border border-neutral-200 p-6">
+        <div className="card p-6">
           <h3 className="font-display text-2xl mb-4">Top Selling Products</h3>
           {data.topSellingProducts.length === 0 ? (
-            <p className="text-neutral-400 text-sm">No sales yet.</p>
+            <p className="text-slate text-sm">No sales yet.</p>
           ) : (
             <ResponsiveContainer width="100%" height={260}>
               <BarChart layout="vertical" data={data.topSellingProducts}>
-                <XAxis type="number" fontSize={12} />
-                <YAxis type="category" dataKey="name" width={120} fontSize={11} />
+                <XAxis type="number" fontSize={12} stroke="#5C6778" />
+                <YAxis type="category" dataKey="name" width={120} fontSize={11} stroke="#5C6778" />
                 <Tooltip />
-                <Bar dataKey="value" fill={GOLD} />
+                <Bar dataKey="value" fill={ACCENT} radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
           )}
         </div>
 
-        <div className="bg-white border border-neutral-200 p-6">
+        <div className="card p-6">
           <h3 className="font-display text-2xl mb-4">Category Distribution</h3>
           <ResponsiveContainer width="100%" height={260}>
             <PieChart>

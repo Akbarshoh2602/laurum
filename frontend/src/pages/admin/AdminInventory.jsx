@@ -52,7 +52,7 @@ export default function AdminInventory() {
 
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Adjust stock */}
-        <div className="bg-white border border-neutral-200 p-5">
+        <div className="card p-5">
           <h3 className="font-display text-2xl mb-4">Adjust Stock</h3>
           <form onSubmit={submit} className="space-y-3">
             <div>
@@ -76,7 +76,7 @@ export default function AdminInventory() {
         </div>
 
         {/* Low stock alerts */}
-        <div className="lg:col-span-2 bg-white border border-neutral-200 p-5">
+        <div className="lg:col-span-2 card p-5">
           <h3 className="font-display text-2xl mb-4">Low Stock Alerts</h3>
           {lowStock.length === 0 ? (
             <p className="text-neutral-400 text-sm">All products are sufficiently stocked.</p>
@@ -94,7 +94,7 @@ export default function AdminInventory() {
       </div>
 
       {/* Movement logs */}
-      <div className="bg-white border border-neutral-200 overflow-x-auto">
+      <div className="card overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="bg-neutral-50 text-left uppercase text-xs tracking-widest text-neutral-500">
             <tr>

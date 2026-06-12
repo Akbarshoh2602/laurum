@@ -44,7 +44,7 @@ export default function AdminCustomers() {
         <button className="btn-ghost px-5">Search</button>
       </form>
 
-      <div className="bg-white border border-neutral-200 overflow-x-auto">
+      <div className="card overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="bg-neutral-50 text-left uppercase text-xs tracking-widest text-neutral-500">
             <tr><th className="p-3">Name</th><th className="p-3">Email</th><th className="p-3">Phone</th><th className="p-3 text-right">Actions</th></tr>

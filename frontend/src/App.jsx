@@ -54,7 +54,14 @@ export default function App() {
             <Route path="inventory" element={<AdminInventory />} />
           </Route>
 
-          <Route path="*" element={<div className="p-20 text-center">Page not found.</div>} />
+          <Route path="*" element={
+            <div className="min-h-[60vh] flex flex-col items-center justify-center px-4 text-center">
+              <span className="badge-hot mb-4 inline-block">404</span>
+              <h1 className="font-display text-6xl mb-4">LOST?</h1>
+              <p className="text-slate font-medium mb-8">This page doesn&apos;t exist. Head back to the shop.</p>
+              <a href="/" className="btn-gold">Go Home</a>
+            </div>
+          } />
         </Routes>
       </main>
       {!isAdminArea && <Footer />}

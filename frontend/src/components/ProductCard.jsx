@@ -23,7 +23,7 @@ export default function ProductCard({ product }) {
     setMsg('')
     try {
       await add(product.id, 1)
-      setMsg('Added')
+      setMsg('Added! ✓')
       setTimeout(() => setMsg(''), 1500)
     } catch (err) {
       setMsg(err.message)
@@ -34,47 +34,60 @@ export default function ProductCard({ product }) {
   }
 
   return (
-    <Link to={`/products/${product.id}`} className="group block card overflow-hidden">
-      <div className="relative aspect-[3/4] bg-neutral-100 overflow-hidden">
-        {product.imageUrl ? (
-          <img
-            src={product.imageUrl}
-            alt={product.name}
-            className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-neutral-400 text-sm">
-            No image
-          </div>
-        )}
-        {product.newArrival && (
-          <span className="badge absolute top-3 left-3 bg-ink text-gold">New</span>
-        )}
-        {outOfStock && (
-          <span className="badge absolute top-3 right-3 bg-red-700 text-white">Sold out</span>
-        )}
-      </div>
-      <div className="p-4">
-        <div className="text-[11px] uppercase tracking-widest text-neutral-400">
-          {product.categoryName || 'AURUM'}
+    <div className="group">
+      <Link to={`/products/${product.id}`} className="block">
+        <div className="relative aspect-[3/4] bg-pearl border-2 border-ink overflow-hidden shadow-pop-sm
+                        group-hover:shadow-pop group-hover:-translate-y-1 transition-all duration-200">
+          {product.imageUrl ? (
+            <img
+              src={product.imageUrl}
+              alt={product.name}
+              className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-slate text-xs font-bold uppercase">
+              No Image
+            </div>
+          )}
+          {product.newArrival && (
+            <span className="badge-new absolute top-3 left-3">New Drop</span>
+          )}
+          {product.bestSeller && !product.newArrival && (
+            <span className="badge-hot absolute top-3 left-3">Hot</span>
+          )}
+          {outOfStock && (
+            <span className="badge-sold absolute top-3 right-3">Sold Out</span>
+          )}
         </div>
-        <h3 className="font-display text-xl leading-snug mt-1">{product.name}</h3>
-        <div className="flex items-center justify-between mt-3">
-          <span className="text-lg">${Number(product.sellingPrice).toFixed(2)}</span>
-          <span className="text-xs text-neutral-400">
-            {product.size && `Size ${product.size}`} {product.color && `· ${product.color}`}
-          </span>
+      </Link>
+
+      <div className="pt-4">
+        <p className="text-[11px] font-bold uppercase tracking-wider text-gold-dark mb-1">
+          {product.categoryName || 'Laura Store'}
+        </p>
+        <Link to={`/products/${product.id}`}>
+          <h3 className="font-display text-2xl text-ink leading-tight group-hover:text-gold transition-colors">
+            {product.name}
+          </h3>
+        </Link>
+        <div className="flex items-center justify-between mt-2">
+          <span className="font-bold text-lg">${Number(product.sellingPrice).toFixed(2)}</span>
+          {(product.size || product.color) && (
+            <span className="text-[11px] font-bold uppercase text-slate">
+              {product.size} {product.color && `· ${product.color}`}
+            </span>
+          )}
         </div>
         {!isAdmin && (
           <button
             onClick={handleAdd}
             disabled={busy || outOfStock}
-            className="btn-gold w-full mt-4 py-2 text-xs"
+            className="w-full mt-3 btn-ghost py-2 text-xs disabled:opacity-40"
           >
-            {msg || (outOfStock ? 'Unavailable' : 'Add to Cart')}
+            {msg || (outOfStock ? 'Out of Stock' : 'Add to Cart →')}
           </button>
         )}
       </div>
-    </Link>
+    </div>
   )
 }

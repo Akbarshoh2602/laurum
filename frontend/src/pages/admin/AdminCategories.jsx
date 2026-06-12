@@ -41,7 +41,7 @@ export default function AdminCategories() {
     <div className="grid md:grid-cols-3 gap-8">
       <div className="md:col-span-2">
         <h2 className="font-display text-3xl mb-6">Categories</h2>
-        <div className="bg-white border border-neutral-200">
+        <div className="card">
           <table className="w-full text-sm">
             <thead className="bg-neutral-50 text-left uppercase text-xs tracking-widest text-neutral-500">
               <tr><th className="p-3">Name</th><th className="p-3">Description</th><th className="p-3 text-right">Actions</th></tr>
@@ -65,7 +65,7 @@ export default function AdminCategories() {
 
       <div>
         <h3 className="font-display text-2xl mb-4">{editing ? 'Edit Category' : 'Add Category'}</h3>
-        <form onSubmit={submit} className="bg-white border border-neutral-200 p-5 space-y-4">
+        <form onSubmit={submit} className="card p-5 space-y-4">
           <div><label className="label">Name</label><input className="input" value={name} onChange={(e) => setName(e.target.value)} required /></div>
           <div><label className="label">Description</label><textarea rows={3} className="input" value={description} onChange={(e) => setDescription(e.target.value)} /></div>
           {error && <p className="text-red-600 text-sm">{error}</p>}
