@@ -54,8 +54,8 @@ export default function Home() {
           <div>
             <span className="badge-new inline-block mb-6 animate-bounce-soft">New Season Drop</span>
             <h1 className="font-display text-6xl sm:text-7xl lg:text-8xl leading-[0.95] mb-6">
-              GEAR lalal.<br />
-              <span className="text-gold">LOOK O'zgartirdim.</span>
+              GEAR Up.<br />
+              <span className="text-gold">LOOK UP.</span>
             </h1>
             <p className="text-cream/80 text-lg max-w-md mb-8 leading-relaxed">
               Premium men&apos;s clothing for guys who actually care about what they wear.
