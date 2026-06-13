@@ -1,3 +1,0 @@
-git add .
-git commit -m "Add CI/CD"
-git push origin main
