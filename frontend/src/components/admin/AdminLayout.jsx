@@ -62,12 +62,12 @@ export default function AdminLayout() {
 
       <div className="flex-1 flex flex-col">
         <header className="h-16 bg-cream border-b-2 border-ink flex items-center justify-between px-8">
-          <h1 className="font-display text-2xl">ADMIN PANEL</h1>
+          <h1 className="font-display text-2xl">ADMIN PANEL1</h1>
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 bg-gold border-2 border-ink text-cream flex items-center justify-center font-display text-lg shadow-pop-sm">
               A
             </div>
-            <span className="text-sm font-bold text-slate">Administrator</span>
+            <span className="text-sm font-bold text-slate">Administrato1r</span>
           </div>
         </header>
         <div className="p-8 flex-1 overflow-auto">
