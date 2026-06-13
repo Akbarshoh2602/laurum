@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // Vite proxy forwards /api -> http://localhost:8080
 const client = axios.create({
-  baseURL: 'http://54.235.61.179:8080/api',
+  baseURL: 'https://laurumcrm.duckdns.org/api',
 })
 
 // Attach JWT from localStorage to every request
