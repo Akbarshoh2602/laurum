@@ -28,7 +28,7 @@ export default function AdminLayout() {
               <span className="font-display text-lg text-cream">L</span>
             </div>
             <div>
-              <span className="font-display text-xl leading-none">LAURA</span>
+              <span className="font-display text-xl leading-none">REMODULE</span>
               <span className="block text-[9px] font-bold uppercase tracking-widest text-gold">Admin</span>
             </div>
           </div>
